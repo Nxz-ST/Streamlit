@@ -4,7 +4,17 @@ import json
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
+try:
+    import joblib
+except Exception:
+    joblib = None
+    # If joblib is missing, show a clear message in the Streamlit UI at import time
+    try:
+        st.error("El paquete 'joblib' no está instalado en el entorno del servidor.\n\nAsegúrate de que `requirements.txt` contiene 'joblib' y redeploya la app en Streamlit Cloud.")
+        st.stop()
+    except Exception:
+        # If Streamlit isn't ready to display, just continue so the error is visible in logs
+        pass
 import pickle
 
 
